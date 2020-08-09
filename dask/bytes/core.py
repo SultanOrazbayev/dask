@@ -94,6 +94,16 @@ def read_bytes(
     if not isinstance(urlpath, (str, list, tuple, os.PathLike)):
         raise TypeError("Path should be a string, os.PathLike, list or tuple")
 
+    temp_urlpath = []
+    if type(urlpath)==str:
+        urlpath = [urlpath]
+    if type(urlpath) == list:
+        for urlpath_ in urlpath:
+            if os.path.isdir(urlpath_):
+                dirpath, _, filespath = next(os.walk(urlpath_))
+                temp_urlpath.extend([os.path.join(dirpath, f) for f in filespath])
+    urlpath = temp_urlpath          
+        
     fs, fs_token, paths = get_fs_token_paths(urlpath, mode="rb", storage_options=kwargs)
 
     if len(paths) == 0:
