@@ -37,8 +37,8 @@ def read_bytes(
 ):
     """Given a path or paths, return delayed objects that read from those paths.
 
-    The path may be a filename like ``'2015-01-01.csv'`` or a globstring
-    like ``'2015-*-*.csv'``.
+    The path may be a filename like ``'2015-01-01.csv'``, a globstring
+    like ``'2015-*-*.csv'`` or a directory path like ``my_directory``.
 
     The path may be preceded by a protocol, like ``s3://`` or ``hdfs://`` if
     those libraries are installed.
@@ -52,7 +52,8 @@ def read_bytes(
         Absolute or relative filepath(s). Prefix with a protocol like ``s3://``
         to read from alternative filesystems. To read from multiple files you
         can pass a globstring or a list of paths, with the caveat that they
-        must all have the same protocol.
+        must all have the same protocol. If directory path(s) is provided, all
+        files contained inside the directory will be read.
     delimiter : bytes
         An optional delimiter, like ``b'\\n'`` on which to split blocks of
         bytes.
